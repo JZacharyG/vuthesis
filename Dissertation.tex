@@ -1,0 +1,144 @@
+%>>> Welcome to Vanderbilt's Dissertation Template <<<%
+%>>> Prepared by J. Zachary Gaslowitz in 2018 <<<%
+
+%>>> Pick your font size ('10pt', '11pt', or '12pt') <<<%
+\documentclass[12pt]{vuthesis}
+%>>> When you're ready, change 'signatures' to 'approved' <<<%
+
+
+\usepackage[intoc]{nomencl} % For creating a list of abbreviations.
+	\renewcommand{\nomname}{LIST OF ABBREVIATIONS} % If you don't want one, delete these lines!
+	\makenomenclature
+
+%>>> Definitely delete this; you don't need any filler text in your beautiful dissertation <<<%
+\usepackage{blindtext}
+\usepackage{tikz}
+
+%>>> Some useful packages.  Uncomment whichever you'd like, or add your own! <<<%
+%Good math packages:
+\usepackage{amsmath, amsfonts, amssymb, mathtools} % many nice math commands and environments
+\usepackage{amsbsy, bm} % useful for bold math symbols
+\usepackage{amsthm} % Some useful environments for theorems, the likes
+	\newtheorem{theorem}{Theorem}[chapter] % Uses the same counter for all of these environments, resents numbering at the start of each chapter
+	\newtheorem{lemma}[theorem]{Lemma}
+	\newtheorem{proposition}[theorem]{Proposition}
+	\newtheorem{corollary}[theorem]{Corollary}
+	\newtheorem{conjecture}[theorem]{Conjecture}
+	\newtheorem{observation}[theorem]{Observation}
+	\newtheorem{claim}{Claim}[theorem] % numbered inside their theorem/lemma
+	\theoremstyle{definition} 
+	\newtheorem{definition}[theorem]{Definition}
+
+
+\usepackage{url} % improved typesetting of urls with \url{}
+\usepackage{subcaption} % allows for subfigures and subtables
+
+\usepackage{nowidow} % Discourages pagebreaks at the first or last line of a paragraph
+
+%!! Most packages should be loaded before hyperref !!%
+\usepackage{hyperref} % automatically creates links where you'd want them to be
+\usepackage[showframe, top=1in, bottom=1in, inner=1.5in, outer=1in]{geometry} % A good way to set the margins.
+
+
+%>>> Choose your line spacing. <<<%
+%\singlespacing
+%\onehalfspacing
+\doublespacing
+
+%>>> Tell us a little bit about yourself. <<<%
+\title{A Compendium of Super Advanced Mathematics Which Will Undoubtedly Improve Every Aspect of the Field}
+\author{J. Zachary Gaslowitz}
+\degree{Doctor of Philosophy}
+\major{Mathematics}
+\graduationdate{May 11, 2018}
+\oncommittee{Paul Erd\"os, Ph.D.}
+\oncommittee{Lise Meitner, Ph.D.}
+\oncommittee{Richard Feynman, Ph.D.}
+\oncommittee{Emmy Noether, Ph.D.}
+\oncommittee{Marie Curie, Ph.D.}
+\oncommittee{Brian May, Ph.D.}
+
+
+\begin{document}
+
+\maketitle
+
+\preliminaries
+
+%>>> (You can remove this section if you don't want it) <<<%
+\copyrightpage{2018}
+
+%>>> (You can remove this section if you don't want it) <<<%
+\begin{dedication}
+This template is dedicated to those people who are awesome.
+\end{dedication}
+
+%>>> (You can remove this section if you don't want it) <<<%
+\acknowledgements
+I would like to thank my advisor and the federal government for their intellectual and financial support, respectively.
+Without either of these parties, I'm sure that I wouldn't have a dissertation in which to write these acknowledgments.
+
+\blindtext
+
+\preface
+\blindtext
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+%>>> (You can remove this section if you don't want it) <<<%
+\printnomenclature
+
+%>>> This is the fun part --- the part where all of your work goes! <<<%
+%>>> I highly suggest putting each chapter in its own file <<<%
+\maincontent
+
+\include{Sample-Chapter-1}
+\include{Sample-Chapter-2}
+%\blinddocument
+
+\appendix
+\chapter{Previously Excluded Details}
+\blindtext[2]
+
+\chapter{Unnecessary Information}
+\section{A Discussion of the Nature of Necessity}
+\blindtext
+\section{The Really Worthless Part}
+\blindtext
+
+\nomenclature{$c$}{Speed of light in a vacuum inertial system}
+\nomenclature{$h$}{Plank Constant}
+\nomenclature{$g$}{Gravitational Constant}
+\nomenclature{$\mathbb{R}$}{Real Numbers}
+\nomenclature{$\mathbb{C}$}{Complex Numbers}
+\nomenclature{$\mathbb{H}$}{Octonions}
+\nomenclature{$\rho$}{Friction Index}
+
+
+
+%\ForEach{,}%
+%{%
+%	\addtocounter{chapter}{1}%
+%	\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Another chapter}%
+%	\ForEachX{;}%
+%	{%
+%		\ifnum\thislevelcount=1%
+%		\else%
+%			\addtocounter{section}{1}%
+%			\addcontentsline{toc}{section}{\protect\numberline{\thesection}Another section}%
+%		\fi
+%	}
+%	{\thislevelitem}
+%}%
+%{;;;,;,,}
+
+\nocite{*}
+
+%>>>  <<<%
+\bibliographystyle{amsplain} 
+\bibliography{Dissertation}
+
+
+\end{document}

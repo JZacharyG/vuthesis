@@ -238,7 +238,8 @@
 	\let\@oldapp\appendix%
 	\def\appendix{\@oldapp\write@heading*{toc}{Appendix}{}}%
 }
-
+%\setcounter{secnumdepth}{7}
+%\setcounter{tocdepth}{7}
 \setcounter{lotdepth}{2}
 \setcounter{lofdepth}{2}
 
@@ -273,12 +274,16 @@
 	{1em}
 	{}
 
-\titleformat{\paragraph}[hang]
+\titleformat{\paragraph}[hang] % runin?
 	{\normalfont\normalsize\singlespacing}
 	{\theparagraph}
 	{1em}
 	{}
 
+
+
+% Just to make the template look nice...
+\newcommand{\emptybox}[2]{\fbox{\parbox[c][#2]{#1}{~}}}
 
 
 \endinput
