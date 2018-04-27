@@ -2,38 +2,77 @@
 \ProvidesClass{vuthesis}[2018/03/31]
 
 \newcommand{\committee@cmd}{}
-\newcommand{\committee@size}{}
-\newcommand{\title@size}{}
-\newcommand{\chapter@size}{}
 \DeclareOption{signatures}%
 	{\renewcommand{\committee@cmd}{\committee@signatures}}
 \DeclareOption{approved}%
 	{\renewcommand{\committee@cmd}{\committee@approved}}
 
+\newcommand{\committee@size}{}
 \DeclareOption{smallnames}%
 	{\renewcommand{\committee@size}{\scriptsize}}
-\DeclareOption{normalnames}%
+\DeclareOption{largenames}%
 	{\renewcommand{\committee@size}{\normalsize}}
 
+\newcommand{\title@size}{}
 \DeclareOption{largetitle}%
 	{\renewcommand{\title@size}{\large}}
-\DeclareOption{normaltitle}%
+\DeclareOption{smalltitle}%
 	{\renewcommand{\title@size}{\normalsize}}
 
+\newcommand{\chapter@size}{}
+\newcommand{\chapter@size@top}{}
+\DeclareOption{Largechapters}%
+	{\renewcommand{\chapter@size}{\Large}
+	\renewcommand{\chapter@size@top}{\large}}
 \DeclareOption{largechapters}%
-	{\renewcommand{\chapter@size}{\large}}
+	{\renewcommand{\chapter@size}{\large}
+	\renewcommand{\chapter@size@top}{\large}}
+\DeclareOption{smallchapters}%
+	{\renewcommand{\chapter@size}{\normalsize}
+	\renewcommand{\chapter@size@top}{\normalsize}}
+
+\newcommand{\section@size}{}
+\DeclareOption{largesections}%
+	{\renewcommand{\section@size}{\large}}
+\DeclareOption{smallsections}%
+	{\renewcommand{\section@size}{\normalsize}}
+
+\newcommand{\chapter@font}{}
+\DeclareOption{boldchapters}%
+	{\renewcommand{\chapter@font}{\bf\boldmath}}
 \DeclareOption{normalchapters}%
-	{\renewcommand{\chapter@size}{\normalsize}}
+	{\renewcommand{\chapter@font}{\normalfont}}
 
+\newcommand{\section@font}{}
+\DeclareOption{boldsections}%
+	{\renewcommand{\section@font}{\bf\boldmath}}
+\DeclareOption{normalsections}%
+	{\renewcommand{\section@font}{\normalfont}}
 
+\newcommand{\subsection@font}{}
+\DeclareOption{boldsubsections}%
+	{\renewcommand{\subsection@font}{\bf\boldmath}}
+\DeclareOption{normalsubsections}%
+	{\renewcommand{\subsection@font}{\normalfont}}
 
+\newcommand{\subsubsection@font}{}
+\DeclareOption{boldsubsubsections}%
+	{\renewcommand{\subsubsection@font}{\bf\boldmath}}
+\DeclareOption{normalsubsubsections}%
+	{\renewcommand{\subsubsection@font}{\normalfont}}
+
+\newcommand{\paragraph@font}{}
+\DeclareOption{boldparagraphs}%
+	{\renewcommand{\paragraph@font}{\bf\boldmath}}
+\DeclareOption{normalparagraphs}%
+	{\renewcommand{\paragraph@font}{\normalfont}}
 
 
 \DeclareOption*{%
 	\PassOptionsToClass{\CurrentOption}{report}}
 
 
-\ExecuteOptions{largechapters,largetitle,smallnames,signatures}
+\ExecuteOptions{largechapters,largetitle,smallsections,smallnames,normalchapters,normalsections,normalsubsections,normalsubsubsections,normalparagraphs,approved}
 \ProcessOptions\relax
 \LoadClass[titlepage]{report}
 
@@ -249,33 +288,33 @@
 \RequirePackage{calc}
 
 \titleformat{\chapter}[display]
-	{\begin{spacing}{1}\vspace*{-\baselineskip}\vspace*{-\parskip}\normalfont\chapter@size\filcenter}
+	{\begin{spacing}{1}\vspace*{-\baselineskip}\vspace*{-\parskip}\chapter@font\chapter@size@top\filcenter}
 	{\chaptertitlename\ \thechapter}
 	{\baselineskip-\parskip}
-	{}[\end{spacing}]
+	{\chapter@size}[\end{spacing}]
 \titlespacing*{\chapter}{.5in}{0pt}{\baselineskip-\parskip}[.5in]
 
 \titleformat{\section}[block]
-	{\begin{spacing}{1}\normalfont\normalsize\filcenter}
+	{\begin{spacing}{1}\section@font\section@size\filcenter}
 	{\thesection}
 	{1em}
 	{}[\end{spacing}]
 \titlespacing*{\section}{.5in}{\baselineskip-\parskip}{\baselineskip-\parskip}[.5in]
 
 \titleformat{\subsection}[hang]
-	{\normalfont\normalsize\singlespacing}
+	{\subsection@font\normalsize\singlespacing}
 	{\thesubsection}
 	{1em}
 	{}
 
 \titleformat{\subsubsection}[hang]
-	{\normalfont\normalsize\singlespacing}
+	{\subsubsection@font\normalsize\singlespacing}
 	{\thesubsubsection}
 	{1em}
 	{}
 
 \titleformat{\paragraph}[hang] % runin?
-	{\normalfont\normalsize\singlespacing}
+	{\paragraph@font\normalsize\singlespacing}
 	{\theparagraph}
 	{1em}
 	{}
