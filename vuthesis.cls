@@ -13,66 +13,11 @@
 \DeclareOption{largenames}%
 	{\renewcommand{\committee@size}{\normalsize}}
 
-\newcommand{\title@size}{}
-\DeclareOption{largetitle}%
-	{\renewcommand{\title@size}{\large}}
-\DeclareOption{smalltitle}%
-	{\renewcommand{\title@size}{\normalsize}}
-
-\newcommand{\chapter@size}{}
-\newcommand{\chapter@size@top}{}
-\DeclareOption{Largechapters}%
-	{\renewcommand{\chapter@size}{\Large}
-	\renewcommand{\chapter@size@top}{\large}}
-\DeclareOption{largechapters}%
-	{\renewcommand{\chapter@size}{\large}
-	\renewcommand{\chapter@size@top}{\large}}
-\DeclareOption{smallchapters}%
-	{\renewcommand{\chapter@size}{\normalsize}
-	\renewcommand{\chapter@size@top}{\normalsize}}
-
-\newcommand{\section@size}{}
-\DeclareOption{largesections}%
-	{\renewcommand{\section@size}{\large}}
-\DeclareOption{smallsections}%
-	{\renewcommand{\section@size}{\normalsize}}
-
-\newcommand{\chapter@font}{}
-\DeclareOption{boldchapters}%
-	{\renewcommand{\chapter@font}{\bf\boldmath}}
-\DeclareOption{normalchapters}%
-	{\renewcommand{\chapter@font}{\normalfont}}
-
-\newcommand{\section@font}{}
-\DeclareOption{boldsections}%
-	{\renewcommand{\section@font}{\bf\boldmath}}
-\DeclareOption{normalsections}%
-	{\renewcommand{\section@font}{\normalfont}}
-
-\newcommand{\subsection@font}{}
-\DeclareOption{boldsubsections}%
-	{\renewcommand{\subsection@font}{\bf\boldmath}}
-\DeclareOption{normalsubsections}%
-	{\renewcommand{\subsection@font}{\normalfont}}
-
-\newcommand{\subsubsection@font}{}
-\DeclareOption{boldsubsubsections}%
-	{\renewcommand{\subsubsection@font}{\bf\boldmath}}
-\DeclareOption{normalsubsubsections}%
-	{\renewcommand{\subsubsection@font}{\normalfont}}
-
-\newcommand{\paragraph@font}{}
-\DeclareOption{boldparagraphs}%
-	{\renewcommand{\paragraph@font}{\bf\boldmath}}
-\DeclareOption{normalparagraphs}%
-	{\renewcommand{\paragraph@font}{\normalfont}}
-
-
 \DeclareOption*{%
 	\PassOptionsToClass{\CurrentOption}{report}}
 
 
-\ExecuteOptions{largechapters,largetitle,smallsections,smallnames,normalchapters,normalsections,normalsubsections,normalsubsubsections,normalparagraphs,approved}
+\ExecuteOptions{smallnames,approved}
 \ProcessOptions\relax
 \LoadClass[titlepage]{report}
 
@@ -84,8 +29,9 @@
 \RequirePackage[titles]{tocloft}
 
 
-
-
+%>>> Customizing the title page <<<%
+\newcommand{\title@size}{\normalsize}
+\newcommand{\titlesize}[1]{\renewcommand{\title@size}{#1}}
 
 \def\@committee{}
 \def\oncommittee{\@ifstar\oncommittee@star\oncommittee@nostar}
@@ -181,6 +127,8 @@
 	\global\let\and\relax
 }
 
+
+%>>> Customizing the prelimiary sections and bibliography <<<%
 \renewcommand{\contentsname}{TABLE OF CONTENTS}
 \renewcommand{\listfigurename}{LIST OF FIGURES}
 \renewcommand{\listtablename}{LIST OF TABLES}
@@ -242,9 +190,6 @@
 %	\def\listoftables{\clearpage\begingroup\singlespacing\inlottrue\@oldlot\endgroup}%
 %}
 
-
-
-
 \renewcommand{\cftchapfont}{\normalfont}
 \renewcommand{\cftchappagefont}{\normalfont}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
@@ -283,9 +228,39 @@
 \setcounter{lofdepth}{2}
 
 
-% Customize chapter/section headings
+%>>> Customize chapter/section headings <<<%
 \RequirePackage{titlesec}
 \RequirePackage{calc}
+
+\def\paragraph@size{\normalsize}
+\def\subsubsection@size{\paragraph@size}
+\def\subsection@size{\subsubsection@size}
+\def\section@size{\subsection@size}
+\def\chapter@size{\section@size}
+\def\chapter@size@top{\chapter@size}
+
+\newcommand{\chaptersize}[2][]{
+	\def\chapter@size{#2}
+	\def\chapter@size@top{#1}
+	\ifx\chapter@size@top\empty
+		\def\chapter@size@top{#2}
+	\fi
+}
+\newcommand{\sectionsize}[1]{\def\section@size{#1}}
+\newcommand{\subsectionsize}[1]{\def\subsection@size{#1}}
+\newcommand{\subsubsectionsize}[1]{\def\subsubsection@size{#1}}
+\newcommand{\paragraphsize}[1]{\def\paragraph@size{#1}}
+
+\newcommand{\chapter@font}{\normalfont}
+\newcommand{\boldchapters}{\renewcommand{\chapter@font}{\bfseries\boldmath}}
+\newcommand{\section@font}{\normalfont}
+\newcommand{\boldsections}{\renewcommand{\section@font}{\bfseries\boldmath}}
+\newcommand{\subsection@font}{\normalfont}
+\newcommand{\boldsubsections}{\renewcommand{\subsection@font}{\bfseries\boldmath}}
+\newcommand{\subsubsection@font}{\normalfont}
+\newcommand{\boldsubsubsections}{\renewcommand{\subsubsection@font}{\bfseries\boldmath}}
+\newcommand{\paragraph@font}{\normalfont}
+\newcommand\boldparagraphs{\renewcommand{\paragraph@font}{\bfseries\boldmath}}
 
 \titleformat{\chapter}[display]
 	{\begin{spacing}{1}\vspace*{-\baselineskip}\vspace*{-\parskip}\chapter@font\chapter@size@top\filcenter}
@@ -302,19 +277,19 @@
 \titlespacing*{\section}{.5in}{\baselineskip-\parskip}{\baselineskip-\parskip}[.5in]
 
 \titleformat{\subsection}[hang]
-	{\subsection@font\normalsize\singlespacing}
+	{\subsection@font\subsection@size\singlespacing}
 	{\thesubsection}
 	{1em}
 	{}
 
 \titleformat{\subsubsection}[hang]
-	{\subsubsection@font\normalsize\singlespacing}
+	{\subsubsection@font\subsubsection@size\singlespacing}
 	{\thesubsubsection}
 	{1em}
 	{}
 
 \titleformat{\paragraph}[hang] % runin?
-	{\paragraph@font\normalsize\singlespacing}
+	{\paragraph@font\paragraph@size\singlespacing}
 	{\theparagraph}
 	{1em}
 	{}
