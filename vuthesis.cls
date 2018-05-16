@@ -1,6 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{vuthesis}[2018/03/31]
 
+\newlength{\chapterinset}
+	\setlength{\chapterinset}{.5in}
+\newlength{\sectioninset}
+\newlength{\subsectioninset}
+
+
+
+
+
 \newcommand{\committee@cmd}{}
 \DeclareOption{signatures}%
 	{\renewcommand{\committee@cmd}{\committee@signatures}}
@@ -13,11 +22,41 @@
 \DeclareOption{largenames}%
 	{\renewcommand{\committee@size}{\normalsize}}
 
+\newcommand{\section@type}{}
+\newcommand{\section@alignment}{}
+\DeclareOption{flushsec}%
+{
+	\renewcommand{\section@type}{hang}
+	\renewcommand{\section@alignment}{\filright}
+	\setlength{\sectioninset}{0in}
+}
+\DeclareOption{centersec}%
+{
+	\renewcommand{\section@type}{block}
+	\renewcommand{\section@alignment}{\filcenter}
+	\setlength{\sectioninset}{.5in}
+}
+
+\newcommand{\subsection@type}{}
+\newcommand{\subsection@alignment}{}
+\DeclareOption{flushsubsec}%
+{
+	\renewcommand{\subsection@type}{hang}
+	\renewcommand{\subsection@alignment}{\filright}
+	\setlength{\subsectioninset}{0in}
+}
+\DeclareOption{centersubsec}%
+{
+	\renewcommand{\subsection@type}{block}
+	\renewcommand{\subsection@alignment}{\filcenter}
+	\setlength{\subsectioninset}{.5in}
+}
+
 \DeclareOption*{%
 	\PassOptionsToClass{\CurrentOption}{report}}
 
 
-\ExecuteOptions{smallnames,approved}
+\ExecuteOptions{smallnames,approved,centersec,centersubsec}
 \ProcessOptions\relax
 \LoadClass[titlepage]{report}
 
@@ -32,6 +71,8 @@
 %>>> Customizing the title page <<<%
 \newcommand{\title@size}{\normalsize}
 \newcommand{\titlesize}[1]{\renewcommand{\title@size}{#1}}
+\newcommand{\title@font}{\normalfont}
+\newcommand{\boldtitle}{\renewcommand{\title@font}{\bfseries\boldmath}}
 
 \def\@committee{}
 \def\oncommittee{\@ifstar\oncommittee@star\oncommittee@nostar}
@@ -43,22 +84,23 @@
 		\g@addto@macro\@committee{,{#1}}%
 	\fi%
 }
-\newcommand{\oncommittee@star}[1]{\oncommittee@nostar{#1 (Chair)}}
+\newcommand{\oncommittee@star}[2][Chair]{\oncommittee@nostar{#2, #1}}
+
 \newlength{\signature@total@length}
-\setlength{\signature@total@length}{4.5in}
+	\setlength{\signature@total@length}{4.5in}
 \newlength{\date@line@length}
-\setlength{\date@line@length}{1in}
+	\setlength{\date@line@length}{1in}
 \newlength{\signature@line@sep}
-\setlength{\signature@line@sep}{.1in}
-\newlength{\signature@line@height}
-\setlength{\signature@line@height}{.3in minus .1in}
+	\setlength{\signature@line@sep}{.1in}
+\newlength{\signaturelineheight}
+	\setlength{\signaturelineheight}{.3in minus .1in}
 
 \newcommand{\committee@signatures}{%
 	{\centering\singlespacing
 	\makebox[\signature@total@length]{\small Approved:\hfill\makebox[0pt][l]{Date:}\hspace{\date@line@length}}%
 	\ForEachX{,}%
 	{%
-		\vskip \signature@line@height
+		\vskip \signaturelineheight
 		\parbox{\signature@total@length}{\hrulefill\hspace{\signature@line@sep}\rule{\date@line@length}{.4pt}\\
 		\committee@size\thislevelitem}
 	}%
@@ -95,7 +137,7 @@
 		{
 			\centering%
 			\singlespacing%
-			{\title@size\@title}\\%
+			{\title@font\title@size\@title}\\%
 			\doublespacing%
 			\vskip .5\baselineskip%
 			By\\%
@@ -124,6 +166,7 @@
 	\global\let\title\relax
 	\global\let\author\relax
 	\global\let\graduationdate\relax
+	\global\let\oncommittee\relax
 	\global\let\and\relax
 }
 
@@ -267,20 +310,22 @@
 	{\chaptertitlename\ \thechapter}
 	{\baselineskip-\parskip}
 	{\chapter@size}[\end{spacing}]
-\titlespacing*{\chapter}{.5in}{0pt}{\baselineskip-\parskip}[.5in]
+\titlespacing*{\chapter}{\chapterinset}{0pt}{\baselineskip-\parskip}[\chapterinset]
 
-\titleformat{\section}[block]
-	{\begin{spacing}{1}\section@font\section@size\filcenter}
+\titleformat{\section}[\section@type]
+	{\section@font\section@size\section@alignment}
 	{\thesection}
 	{1em}
-	{}[\end{spacing}]
-\titlespacing*{\section}{.5in}{\baselineskip-\parskip}{\baselineskip-\parskip}[.5in]
+	{}[]
+\titlespacing*{\section}{\sectioninset}{1.5\baselineskip-\parskip}{\baselineskip-\parskip}[\sectioninset]
 
-\titleformat{\subsection}[hang]
-	{\subsection@font\subsection@size\singlespacing}
+\titleformat{\subsection}[\subsection@type]
+	{\subsection@font\subsection@size\subsection@alignment}
 	{\thesubsection}
 	{1em}
-	{}
+	{}[]
+\titlespacing*{\subsection}{\subsectioninset}{\baselineskip-\parskip}{.5\baselineskip-\parskip}[\subsectioninset]
+
 
 \titleformat{\subsubsection}[hang]
 	{\subsubsection@font\subsubsection@size\singlespacing}

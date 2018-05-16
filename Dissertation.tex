@@ -3,9 +3,16 @@
 
 %>>> Pick your font size ('10pt', '11pt', or '12pt') <<<%
 %>>> When you're ready, change 'signatures' to 'approved' <<<%
-\documentclass[12pt, signatures]{vuthesis}
+\documentclass[final, 12pt, signatures]{vuthesis}
+%>>> Some options: <<<%
+% draft vs final, for packages that should behave differently in the final version
+% 10pt vs 11pt vs 12pt, base font size
+% signatures vs approved: how committee is shown on title page
+% smallnames vs largenames: size of committee names under signature lines
+% centersec vs flushsec: alignment of section headings
+% centersubsec vs flushsubsec: alignment of subsection headings
 
-%>>> If you'd like to customize the various titles and headings <<<%
+%>>> If you'd like, you can customize the various titles and headings <<<%
 \titlesize{\large}
 \chaptersize[\large]{\Large}
 \sectionsize{\large}
@@ -39,14 +46,16 @@
 
 % Graphics packages:
 %\usepackage{tikz} % A great and powerful library for drawing pictures
-%\usepackage{graphicx}
-	%\graphicspath{{images/}} % it will look for images in this directory
+%\usepackage{graphicx} % For including external images
+	%\graphicspath{{images/}} % Look for images in this directory
 	%\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.PNG,.eps,.tiff}
-%\usepackage{rotating} % good for creating rotated figures and tables
+%\usepackage{rotating} % Good for creating rotated figures and tables
 
 %\usepackage{algorithm} % Creates a new float for algorithms
-%\usepackage{algpseudocode} % facilitates the typing of pseudocode
+%\usepackage{algpseudocode} % Facilitates the typing of pseudocode
 
+
+\usepackage[notref]{showkeys} % in draft mode, shows labels in document
 \usepackage{url} % improved typesetting of urls with \url{}
 \usepackage{subcaption} % allows for subfigures and subtables
 \usepackage{nowidow} % Discourages pagebreaks at the first or last line of a paragraph
@@ -55,7 +64,7 @@
 \usepackage{hyperref} % automatically creates links where you'd want them to be
 
 %>>> You can set margins here, among other things <<<%
-\usepackage[showframe,top=1in, bottom=1in, inner=1.25in, outer=1.25in]{geometry}
+\usepackage[top=1in, bottom=1in, inner=1.25in, outer=1.25in]{geometry}
 
 
 
